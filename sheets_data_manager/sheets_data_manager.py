@@ -13,22 +13,22 @@ class SheetsDataManager:
         self.sheet = gc.open('dataflow tracker').sheet1
         
     def update_runs_count(self, amount):
-        self.sheet.update_cell(1, 2, amount)
+        self.sheet.update_cell(2, 2, amount)
         
-    def update_commit_count(self, amount):
-        self.sheet.update_cell(2, 2, amount) 
-    
-    def update_seccess_commit_count(self, amount):
+    def update_submit_count(self, amount):
         self.sheet.update_cell(3, 2, amount) 
     
+    def update_seccess_submit_count(self, amount):
+        self.sheet.update_cell(4, 2, amount) 
+    
     def update_percent_seccess_decisions(self, percent):
-        self.sheet.update_cell(4, 2, percent) 
+        self.sheet.update_cell(5, 2, percent) 
     
     def update_unique_users(self, amount):
-        self.sheet.update_cell(5, 2, amount) 
+        self.sheet.update_cell(6, 2, amount) 
     
     def update_most_popular_task(self, url):
-        self.sheet.update_cell(6, 2, url) 
+        self.sheet.update_cell(7, 2, url) 
     
     def update_max_decisions(self, amount):
-        self.sheet.update_cell(7, 2, amount) 
+        self.sheet.update_cell(8, 2, amount) 

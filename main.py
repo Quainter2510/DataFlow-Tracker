@@ -6,6 +6,7 @@ from sheets_data_manager import SheetsDataManager
 import schedule
 import datetime 
 import time
+from email_sender import send_message
 
 
 grade_handler = GradeHandler()
@@ -21,12 +22,11 @@ def load_grade():
     logger.info(f"Загрузка данных в базу данных завершена. Добавлено {len(grade_list)} записей")
 
 
-
 def fill_table():
     logger.info("Загрузка данных в google sheets")
     sheet_manager.update_runs_count(database.get_runs_count_by_last_day())
-    sheet_manager.update_commit_count(database.get_commit_count_by_last_day())
-    sheet_manager.update_seccess_commit_count(database.get_success_commit_count_by_last_day())
+    sheet_manager.update_submit_count(database.get_submit_count_by_last_day())
+    sheet_manager.update_seccess_submit_count(database.get_success_submit_count_by_last_day())
     sheet_manager.update_percent_seccess_decisions(database.get_percentage_correct_decisions_by_last_day())
     sheet_manager.update_unique_users(database.get_unique_users_by_last_day())
     task, decisions = database.get_most_popular_task_by_last_day()
@@ -34,12 +34,15 @@ def fill_table():
     sheet_manager.update_max_decisions(decisions)
     
     
-    
 if __name__ == "__main__":
     schedule.every().day.at("23:59").do(fill_table) 
     schedule.every(config.api.interval).minutes.do(load_grade) 
-    
+    try:
+        send_message() 
+        logger.info("Письмо отправлено на почту")
+    except:
+        logger.error("Не удалось отправить письмо на почту")
     while True:
         schedule.run_pending()
-        time.sleep(1)  # Чтобы не нагружать процессор
+        time.sleep(1) 
     

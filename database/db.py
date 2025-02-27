@@ -45,7 +45,7 @@ class DataBase:
                            ''')
             return cursor.fetchone()[0]
     
-    def get_commit_count_by_last_day(self):
+    def get_submit_count_by_last_day(self):
         with self.conn.cursor() as cursor:
             cursor.execute('''SELECT COUNT(*)
                             FROM grade
@@ -54,7 +54,7 @@ class DataBase:
                            ''')
             return cursor.fetchone()[0]
         
-    def get_success_commit_count_by_last_day(self):
+    def get_success_submit_count_by_last_day(self):
         with self.conn.cursor() as cursor:
             cursor.execute('''SELECT COUNT(*)
                             FROM grade
@@ -65,8 +65,8 @@ class DataBase:
             return cursor.fetchone()[0]
         
     def get_percentage_correct_decisions_by_last_day(self):
-        seccess = self.get_success_commit_count_by_last_day()
-        all = self.get_commit_count_by_last_day()
+        seccess = self.get_success_submit_count_by_last_day()
+        all = self.get_submit_count_by_last_day()
         if all == 0:
             return 0 
         return seccess / all

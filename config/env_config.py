@@ -31,4 +31,9 @@ class DBConfig(ConfigBase):
     port: int 
     database: str 
     
+class EmailConfig(ConfigBase):
+    model_config = SettingsConfigDict(env_prefix="email_")
+    
+    login: str 
+    password: str 
 
