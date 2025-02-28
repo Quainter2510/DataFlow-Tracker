@@ -6,13 +6,6 @@ class ConfigBase(BaseSettings):
         env_file_encoding="utf-8",
         extra="ignore"
     )
-
-class DataBaseConfig(ConfigBase):
-    model_config = SettingsConfigDict(env_prefix="db_")
-
-    host: str
-    username: str
-    password: str
     
 class APIConfig(ConfigBase):
     model_config = SettingsConfigDict(env_prefix="api_")
@@ -36,4 +29,5 @@ class EmailConfig(ConfigBase):
     
     login: str 
     password: str 
+    receiver: str
 
